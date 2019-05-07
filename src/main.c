@@ -13,7 +13,7 @@ unsigned int verifica_primo (unsigned int N);
 
 int main() {  
   unsigned int vetor_numeros[NMAX];
-  char c;                         /*auxilia na leitura da entrada*/
+  char c;                           /*auxilia na leitura da entrada*/
   int qntd_numeros = 0;
 
   for(int b = 0; b < NMAX; b++) {   /*forma de 'zerar' meu vetor*/
