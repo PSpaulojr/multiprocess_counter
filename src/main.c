@@ -70,6 +70,7 @@ int main() {
       
       for( int k = i ; k  < qntd_numeros ; k += N_PROCESSOS ){
         primos[k+1] += verifica_primo( vetor_numeros[k+1] );
+        printf("%d, (%d)\n", vetor_numeros[k+1], primos[k+1] );
       }
       //while(1);
       exit(0);
@@ -81,6 +82,7 @@ int main() {
 
   for(int k = 0 ; k  < qntd_numeros ; k += N_PROCESSOS) {
     primos[k] += verifica_primo( vetor_numeros[k] );
+    printf("%d, (%d)\n", vetor_numeros[k], primos[k] );
   }
 
   for (int k = 0; k < abrir_processos ; k++){
