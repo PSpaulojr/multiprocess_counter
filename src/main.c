@@ -42,7 +42,7 @@ int main() {
 
   /*Verificacao da qntd de processos filhos a serem criados */
 
-  if(qntd_numeros-1 > 3) {
+ /* if(qntd_numeros-1 > 3) {
     abrir_processos = N_PROCESSOS-2;
   }
   else if (qntd_numeros-1 == 3) {
@@ -51,10 +51,18 @@ int main() {
   else if (qntd_numeros-1 == 2) {
     abrir_processos = N_PROCESSOS-4;
   }
+*/
+
+  if (qntd_numeros > 4){
+    abrir_processos = 3;
+  }
+  else{
+    abrir_processos = qntd_numeros-2;
+  }
 
 /*Criar processos filhos*/
 
-  for(int i = 0; i < abrir_processos+1 ; i++){
+  for(int i = 0; i < abrir_processos ; i++){
     filho[i] = fork();
     if (filho[i]==0) {
       
@@ -63,6 +71,7 @@ int main() {
       for( int k = i ; k  < qntd_numeros ; k += N_PROCESSOS ){
         primos[k+1] += verifica_primo( vetor_numeros[k+1] );
       }
+      //while(1);
       exit(0);
     }
   }
@@ -74,7 +83,7 @@ int main() {
     primos[k] += verifica_primo( vetor_numeros[k] );
   }
 
-  for (int k = 0; k < N_PROCESSOS-1; k++){
+  for (int k = 0; k < abrir_processos ; k++){
     waitpid (filho[k], NULL, 0);
   }
 
