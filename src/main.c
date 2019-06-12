@@ -5,8 +5,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+
 #define NMAX         64
 #define N_PROCESSOS  4
+
 
 
 unsigned int verifica_primo (unsigned int N);
@@ -36,22 +38,10 @@ int main() {
 
   primos = (int*) mmap(NULL, 64*sizeof(int), protection, visibility, 0, 0);
   
-  for(int j; j < NMAX; j++ ) {  /*'zero' meu vetor cujo conteudo de cada indice eh 1 ou 0 (primo ou nao) */
+  for(int j=0; j < NMAX; j++ ) {  /*'zero' meu vetor cujo conteudo de cada indice eh 1 ou 0 (primo ou nao) */
     primos[j] = '\0'; 
   }
 
-  /*Verificacao da qntd de processos filhos a serem criados */
-
- /* if(qntd_numeros-1 > 3) {
-    abrir_processos = N_PROCESSOS-2;
-  }
-  else if (qntd_numeros-1 == 3) {
-    abrir_processos = N_PROCESSOS-3;
-  }
-  else if (qntd_numeros-1 == 2) {
-    abrir_processos = N_PROCESSOS-4;
-  }
-*/
 
   if (qntd_numeros > 4){
     abrir_processos = 3;
@@ -70,7 +60,7 @@ int main() {
       
       for( int k = i ; k  < qntd_numeros ; k += N_PROCESSOS ){
         primos[k+1] += verifica_primo( vetor_numeros[k+1] );
-        printf("%d, (%d)\n", vetor_numeros[k+1], primos[k+1] );
+        //printf("%d, (%d)\n", vetor_numeros[k+1], primos[k+1] );
       }
       //while(1);
       exit(0);
@@ -82,14 +72,14 @@ int main() {
 
   for(int k = 0 ; k  < qntd_numeros ; k += N_PROCESSOS) {
     primos[k] += verifica_primo( vetor_numeros[k] );
-    printf("%d, (%d)\n", vetor_numeros[k], primos[k] );
+    //printf("%d, (%d)\n", vetor_numeros[k], primos[k] );
   }
 
   for (int k = 0; k < abrir_processos ; k++){
     waitpid (filho[k], NULL, 0);
   }
 
-  for(int j; j < NMAX+1; j++ ){
+  for(int j=0; j < qntd_numeros; j++ ){
     qntd_primos += primos[j];
   }
 
@@ -122,3 +112,4 @@ unsigned int verifica_primo (unsigned int N){
 
   return divisores;
 }
+
